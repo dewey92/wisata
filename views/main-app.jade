@@ -1,0 +1,88 @@
+extends ./layout
+
+block styles
+	link(rel="stylesheet", type="text/css", href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css")
+	link(rel="stylesheet", type="text/css", href="/css/leaflet.awesome-markers.min.css")
+	//-link(rel="stylesheet", type="text/css", href="https://api.tiles.mapbox.com/mapbox.js/v2.1.7/mapbox.css")
+
+block body
+	//- Informasi umum aja
+	.city-information
+		header
+			.header-cover(style='background-image: url(/images/city/' + city.name + '/malang-cover.jpg)')
+				.header-text.text-center
+					h2 Malang, Indonesia
+					p A beautiful city
+					br
+					button.btn.btn-danger.btn-lg#show-map Make a Trip Here !!
+
+		section
+			.info-tab
+				.container-fluid
+					//- tab
+					ul.nav.nav-pills.pull-right
+						li.active(role='presentation')
+							a(href='#city-photos')
+								i.fa.fa-camera
+								| &nbsp;Photo
+						li(role='presentation')
+							a(href='#people')
+								i.fa.fa-male
+								| &nbsp;People
+						li(role='presentation')
+							a(href='#tips')
+								i.fa.fa-info-circle
+								| &nbsp;Tips
+						//-
+		//- isi
+		section
+			.container-fluid
+				#city-photos
+					.row
+						each image in images
+							.col-xs-6.col-sm-3
+								.thumbnail
+									img(src=image, alt='').img-responsive
+									.caption
+										h3 Title
+										p ...
+										p
+											a(href="#").btn.btn-primary Action
+											a(href="#").btn.btn-default Action
+				#people
+					p hehe
+				#tips
+					p haha
+
+	//- Main app jalan disini
+	#wrap-app(style='display : none')
+
+	//- src react
+	script(src="/js/JSXTransformer.js")
+	script(src="/js/react.js")
+
+	//- src jquery & bootstrap
+	//-script(src="//code.jquery.com/jquery-2.1.3.min.js")
+	script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+	script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+
+	//- map pake native leaflet
+	script(src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js")
+	script(src="/js/leaflet.awesome-markers.min.js")
+
+	//- src main-app
+	script(type="text/jsx", src="/js/map-component-leaflet.js")
+	//-script(type="text/jsx", src="/js/city-photos.js")
+	script(type="text/jsx", src="/js/main-app.js")
+
+	//- src mapbox
+	//-script(src="https://api.tiles.mapbox.com/mapbox.js/v2.1.7/mapbox.js")
+
+	script.
+		var mountedApp;
+		var city;
+		var places;
+
+		$('#show-map').click( function(e) {
+			$('#wrap-app').show(400);
+		});

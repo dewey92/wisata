@@ -1,0 +1,167 @@
+box-shadow()
+	box-shadow -3px 0 10px #999
+	
+/*transform()
+	-webkit-transform arguments
+	-moz-transform arguments
+	-o-transform arguments
+	transform arguments
+	
+transition()
+	-webkit-transition arguments
+	-moz-transition arguments
+	-o-transition arguments
+	transition arguments*/
+
+html, body
+	height 100%
+	//font-family 'Museo Thin'
+
+/*@font-face
+	font-family 'Museo Thin'
+	src url(../fonts/museosans100.woff) format("woff")
+	font-weight 400
+	font-style normal
+
+@font-face
+	font-family 'Museo Fat'
+	src url(../fonts/museosans700.woff) format("woff")
+	font-weight 400
+	font-style normal*/
+
+h1,h2,h3,h4,h5,h6
+	color inherit
+	//font-family 'Museo Fat'
+	
+.navbar-transparent
+	background-color transparent
+	z-index 1000
+	box-shadow none
+	border none
+	
+#hero-wrapper
+	position relative
+	height 600px
+	background-color rgba(184,77,69, 0.5)
+	
+	#hero-text
+		padding-top 100px
+		
+		h1
+			font-size 50px
+			color white
+		h3
+			font-size 40px
+			color white
+	
+	#hero-search-box
+		position absolute
+		bottom 0
+		left 0
+		right 0
+		background rgba(0,0,0,0.6)
+		padding 30px 0
+		
+.header-cover
+	background-position center
+	background-size cover
+	
+	.header-text
+		background: rgba(0,0,0,0.4);
+		padding: 60px 0 25px;
+		color white
+		
+		h2
+			font-size 60px
+		p
+			margin-top 0
+			font-size 45px
+			
+.info-tab
+	padding 10px 0
+	background white
+	
+#wrap-app
+	position absolute
+	top 51px
+	bottom 0
+	left 0
+	right 0
+	overflow hidden
+	
+	#control
+		position relative
+		width 100%
+		background transparent
+		padding 5px
+		
+	#main-app
+		position absolute
+		top 0
+		right 0
+		left 0
+		bottom 0
+
+	#map-canvas
+		position absolute
+		top 0
+		bottom 0
+		left 0
+		right 0
+		z-index 1
+		transition all .25s ease-in-out .1s;
+		
+	#map-canvas.open
+		right 320px
+		
+	#wrap-dest-list
+		position absolute
+		top 0
+		right 0
+		bottom 0
+		width 320px
+		z-index 10
+		background-color #f9f9f9
+		box-shadow()
+		transform translate(320px,0)
+		/*-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;*/
+		transition transform .25s ease-in-out .1s;
+		
+		#dest-list
+			position absolute
+			top 0
+			left 0
+			right 0
+			bottom 0
+			padding 8px
+			overflow auto
+			z-index 12
+		
+		#toggle-dest-list
+			position absolute
+			top 20%
+			right 320px
+			border-radius 7px 0 0 7px
+			cursor pointer
+			z-index 11
+			background-color #f9f9f9
+			padding 10px
+			box-shadow()
+		
+	#wrap-dest-list.open
+		transform translate(0,0)
+			
+	/*#right
+		position absolute
+		top 0
+		left 250px
+		bottom 0
+		right 0
+		padding 15px
+		overflow auto
+		z-index 12*/
+			
+.place-popup
+	background white
