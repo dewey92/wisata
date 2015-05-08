@@ -23,7 +23,8 @@ var Destinations = React.createClass({displayName: "Destinations",
 								React.createElement("span", {style:  { color: 'blue', cursor: 'pointer'}, 
 									href: "#", title: "delete city", 
 									onClick:  this.handleClick.bind( this, obj) }, " ga jadi kesini"
-								)
+								), 
+								React.createElement("p", {className: "hihi"}, "hihi")
 							)
 						)
 					}, this) 

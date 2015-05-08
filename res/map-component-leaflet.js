@@ -1,4 +1,4 @@
-var MapComponent = React.createClass({displayName: "MapComponent",
+var MapComponent = React.createClass({
 
 	componentDidMount: function() {
 
@@ -54,11 +54,11 @@ var MapComponent = React.createClass({displayName: "MapComponent",
       }, 2);
 
       React.render(
-				React.createElement(Popup, {
-					key:  place.id, 
-					place:  place, 
-					addList:  this.props.addList, 
-					unList:  this.props.unList}),
+				<Popup
+					key     = { place.id }
+					place   = { place }
+					addList = { this.props.addList }
+					unList  = { this.props.unList } />,
 				div
 			);
 
@@ -88,12 +88,12 @@ var MapComponent = React.createClass({displayName: "MapComponent",
 
 	render: function() {
 		return (
-			React.createElement("div", {id: "map-canvas", ref: "map", className: "open"})
+			<div id="map-canvas" ref="map" className="open"></div>
 		);
 	}
 });
 
-var Popup = React.createClass({displayName: "Popup",
+var Popup = React.createClass({
 
 	getInitialState: function() {
 		return {
@@ -113,33 +113,33 @@ var Popup = React.createClass({displayName: "Popup",
 	render: function() {
 
 		var place       = this.props.place;
-		var btnWantGo   = React.createElement("button", {type: "button", 
-												className:  "btn btn-sm btn-block btn-primary", 
-												onClick:  this.handleClick}, 
-													React.createElement("span", {className: "fa fa-heart-o"}), " I wanna go here"
-											);
-		var btnCancelGo = React.createElement("button", {type: "button", 
-												className:  "btn btn-sm btn-block btn-danger", 
-												onClick:  this.handleClick}, 
-													React.createElement("span", {className: "fa fa-trash-o"}), " Cancel"
-											);
+		var btnWantGo   = <button type="button"
+												className={ "btn btn-sm btn-block btn-primary" }
+												onClick={ this.handleClick }>
+													<span className="fa fa-heart-o"></span>&nbsp;I wanna go here
+											</button>;
+		var btnCancelGo = <button type="button"
+												className={ "btn btn-sm btn-block btn-danger" }
+												onClick={ this.handleClick }>
+													<span className="fa fa-trash-o"></span>&nbsp;Cancel
+											</button>;
 
 		var btn         = ( ! this.state.selected ) ? btnWantGo : btnCancelGo;
 
 		return (
-			React.createElement("div", {className: "place-popup", ref:  place.id}, 
-				React.createElement("h3", null,  place.name), 
-				React.createElement("div", {className: "image-container"}, 
-					React.createElement("img", {src: "/images/Batu.jpg", className: "img img-responsive"})
-				), 
-				React.createElement("p", null, "Category: ",  place.category), 
-				React.createElement("ul", {className: "list-inline"}, 
-					React.createElement("li", null, 
-						React.createElement("button", {type: "button", className: "btn btn-sm btn-block btn-default"}, "I have been here")
-					), 
-					React.createElement("li", null,  btn )
-				)
-			)
+			<div className="place-popup" ref={ place.id }>
+				<h3>{ place.name }</h3>
+				<div className="image-container">
+					<img src="/images/Batu.jpg" className="img img-responsive" />
+				</div>
+				<p>Category: { place.category }</p>
+				<ul className="list-inline">
+					<li>
+						<button type="button" className="btn btn-sm btn-block btn-default">I have been here</button>
+					</li>
+					<li>{ btn }</li>
+				</ul>
+			</div>
 		);
 	}
 });

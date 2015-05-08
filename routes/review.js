@@ -3,18 +3,18 @@ var router  = express.Router();
 var async   = require('async');
 
 /* GET places listing. */
-router.get('/:city', function(req, res, next) {
+router.get('/city/:id', function(req, res, next) {
 	var db      = req.db;
-	var place   = db.get('place');
-	var city    = db.get('city');
+	var place   = db.get('review');
+	//var results = {};
 
 	// Fetch database
-	var cityName = req.params.city;
+	var idCity = req.params.id;
 	async.parallel({
 
 		// Load kota
 		city : function( cb ) {
-			city.findOne({ name : cityName }, function( err, cityResult ) {
+			city.findOne({ name : idCity }, function( err, cityResult ) {
 				if(err) return cb( err ); //console.error(err);
 
 				cb( null, cityResult );
@@ -22,7 +22,7 @@ router.get('/:city', function(req, res, next) {
 		},
 		// Load tempat
 		places : function( cb ) {
-			place.find({ city : cityName }, function( err, placesResult ) {
+			place.find({ city : idCity }, function( err, placesResult ) {
 				if(err) return cb( err ); //console.error(err);
 
 				cb( null, placesResult );

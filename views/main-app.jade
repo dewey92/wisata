@@ -58,7 +58,6 @@ block body
 	#wrap-app(style='display : none')
 
 	//- src react
-	script(src="/js/JSXTransformer.js")
 	script(src="/js/react.js")
 
 	//- src jquery & bootstrap
@@ -71,9 +70,9 @@ block body
 	script(src="/js/leaflet.awesome-markers.min.js")
 
 	//- src main-app
-	script(type="text/jsx", src="/js/map-component-leaflet.js")
+	script(src="/js/map-component-leaflet.js")
 	//-script(type="text/jsx", src="/js/city-photos.js")
-	script(type="text/jsx", src="/js/main-app.js")
+	script(src="/js/main-app.js")
 
 	//- src mapbox
 	//-script(src="https://api.tiles.mapbox.com/mapbox.js/v2.1.7/mapbox.js")
@@ -85,4 +84,5 @@ block body
 
 		$('#show-map').click( function(e) {
 			$('#wrap-app').show(400);
+			$(window).resize();
 		});

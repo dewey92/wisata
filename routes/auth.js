@@ -14,11 +14,21 @@ router.get('/', function(req, res, next) {
  * the user back to this application at /auth/twitter/callback
  */
 router.get('/twitter', passport.authenticate('twitter'), function(req, res, next) {
+	console.log('user: ' + req.user );
 	res.render('index', { title: 'Travey' });
 });
 
-router.get('/twitter/callback', passport.authenticate( 'twitter', { failureRedirect: '/' } ), function(req, res) {
-	res.redirect('/account');
+router.get(
+	'/twitter/callback',
+	passport.authenticate( 'twitter', {
+		failureRedirect : '/' ,
+		successRedirect : '/',
+		failureFlash    : 'Gagal login broh',
+		successFlash    : 'Sukses login broh'
+	}),
+	function(req, res) {
+		console.log('haha sukses login broh, nih usernya: ' + req.account);
+		//res.redirect('/account');
 });
 
 router.get('/facebook', passport.authenticate('facebook'), function(req, res, next) {

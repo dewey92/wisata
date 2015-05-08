@@ -4,35 +4,17 @@ var favicon      = require('serve-favicon');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
+var session      = require('express-session');
 var stylus       = require('stylus');
 var nib          = require('nib');
 
 // connection to mongoDB
 var mongo = require('mongodb');
-var db    = require('monk')('localhost:27017/trippy');
+var db    = require('monk')('127.0.0.1:27017/trippy');
 
 // setup login page
-var passport        = require('passport');
-var social          = require('./oauth.js');
-var TwitterStrategy = require('passport-twitter').Strategy;
-
-passport.serializeUser(function(user, done) {
-	done(null, user);
-});
-passport.deserializeUser(function(obj, done) {
-	done(null, obj);
-});
-passport.use(new TwitterStrategy({
-		consumerKey    : social.twitter.consumerKey,
-		consumerSecret : social.twitter.consumerSecret,
-		callbackURL    : social.twitter.callbackURL
-	},
-	function(accessToken, refreshToken, profile, done) {
-		process.nextTick(function() {
-			return done(null, profile);
-		});
-	}
-));
+var passport = require('passport');
+require('./config/passport')(passport, db); // pass passport for configuration
 
 // routes mmiddleware
 var routes = require('./routes/index');
@@ -55,12 +37,12 @@ app.use(cookieParser());
 
 // Stylus
 app.use(stylus.middleware({
-	src     : __dirname + '/res',
-	dest    : __dirname + '/public',
+	src     : path.join(__dirname, 'res'),
+	dest    : path.join(__dirname, 'public'),
 	debug   : true,
-	compile : function(str, path) {
+	compile : function(str, path2) {
 		return stylus(str)
-			.set('filename', path)
+			.set('filename', path2)
 			.set('compress', true)
 			.use(nib())
 			.import('nib');
@@ -75,7 +57,11 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use(express.session({ secret: 'wisata_lelele' }));
+app.use(session({
+	secret : 'wisata asik',
+	resave : false,
+	saveUninitialized : false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 

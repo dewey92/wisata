@@ -1,17 +1,5 @@
-box-shadow()
+box-shadow-add()
 	box-shadow -3px 0 10px #999
-	
-/*transform()
-	-webkit-transform arguments
-	-moz-transform arguments
-	-o-transform arguments
-	transform arguments
-	
-transition()
-	-webkit-transition arguments
-	-moz-transition arguments
-	-o-transition arguments
-	transition arguments*/
 
 html, body
 	height 100%
@@ -43,6 +31,8 @@ h1,h2,h3,h4,h5,h6
 	position relative
 	height 600px
 	background-color rgba(184,77,69, 0.5)
+	background-position center
+	background-size cover
 	
 	#hero-text
 		padding-top 100px
@@ -122,7 +112,7 @@ h1,h2,h3,h4,h5,h6
 		width 320px
 		z-index 10
 		background-color #f9f9f9
-		box-shadow()
+		box-shadow-add()
 		transform translate(320px,0)
 		/*-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -148,7 +138,7 @@ h1,h2,h3,h4,h5,h6
 			z-index 11
 			background-color #f9f9f9
 			padding 10px
-			box-shadow()
+			box-shadow-add()
 		
 	#wrap-dest-list.open
 		transform translate(0,0)
