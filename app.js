@@ -59,8 +59,9 @@ app.use(function (req, res, next) {
 
 app.use(session({
 	secret : 'wisata asik',
+	maxAge : 60 * 60 * 24,
 	resave : false,
-	saveUninitialized : false
+	saveUninitialized : true
 }));
 app.use(passport.initialize());
 app.use(passport.session());

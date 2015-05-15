@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
  * the user back to this application at /auth/twitter/callback
  */
 router.get('/twitter', passport.authenticate('twitter'), function(req, res, next) {
-	console.log('user: ' + req.user );
+	console.log('/twitter = user: ' + req.user );
 	res.render('index', { title: 'Travey' });
 });
 
@@ -22,12 +22,12 @@ router.get(
 	'/twitter/callback',
 	passport.authenticate( 'twitter', {
 		failureRedirect : '/' ,
-		successRedirect : '/',
-		failureFlash    : 'Gagal login broh',
-		successFlash    : 'Sukses login broh'
+		successRedirect : '/'
+		//failureFlash    : 'Gagal login broh',
+		//successFlash    : 'Sukses login broh'
 	}),
 	function(req, res) {
-		console.log('haha sukses login broh, nih usernya: ' + req.account);
+		console.log('callback auth = nih usernya: ' + req.account);
 		//res.redirect('/account');
 });
 

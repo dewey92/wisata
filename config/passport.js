@@ -11,10 +11,13 @@ module.exports = function(passport, db) {
 
 	// used to serialize the user for the session
 	passport.serializeUser(function(user, done) {
+		console.log('serialize user: ' + user);
 		done(null, user);
 	});
 	passport.deserializeUser(function(id, done) {
+		console.log('deserialize id: ' + id );
 		db.get('user').findById(id, function(err, user) {
+			console.log('deserialize user: ' + user );
 			done(err, user);
 		});
 	});
@@ -25,12 +28,38 @@ module.exports = function(passport, db) {
 			consumerSecret : social.twitter.consumerSecret,
 			callbackURL    : social.twitter.callbackURL
 		},
-		function(token, tokenSecret, profile, done) {
+		function (token, tokenSecret, profile, done) {
 
-			console.log( 'id yg login: ' + profile.id );
+			// make function run asyncly
+			process.nextTick(function() {
+
+				console.log( 'ambil dr db id yg lg login: ' + profile.id );
+				// Find or create
+				db.get('user').findOne({ twitterID : profile.id }, function (err, doc) {
+					if (err) return done(err);
+					// Kalo ada usernya
+					if (doc) return done(null, doc);
+					else {
+						// Kalo ga ada usernya, tambahin
+						console.log('ga ada user, tambahin aja');
+
+						db.get('user').insert({
+							twitterID : profile.id
+						}, function(err, doc) {
+							if (err) return done(err);
+
+							return done(null, doc); 
+						});
+					}
+				});
+
+			});
+
 			/*db.get('user').findAndModify({
 				query  : { id : profile.id },
-				update : { $setOnInsert : { foo : 'bar' } },
+				update : { $setOnInsert : {
+					twitterID : profile.id
+				}},
 				new    : true,
 				upsert : true
 			}, {}, function( err, doc ) {
@@ -42,7 +71,7 @@ module.exports = function(passport, db) {
 	));
 
 	// Login local
-	passport.use(new LocalStrategy(
+	/*passport.use(new LocalStrategy(
 		function(username, password, done) {
 			User.findOne({ username: username }, function(err, user) {
 				if(err) { return done(err); }
@@ -55,61 +84,6 @@ module.exports = function(passport, db) {
 				return done(null, user);
 			});
 		}
-	));
-
-	// code for login (use('local-login', new LocalStategy))
-	// code for signup (use('local-signup', new LocalStategy))
-	// code for facebook (use('facebook', new FacebookStrategy))
-
-	// =========================================================================
-	// TWITTER =================================================================
-	// =========================================================================
-	/*passport.use(new TwitterStrategy({
-
-			consumerKey: configAuth.twitterAuth.consumerKey,
-			consumerSecret: configAuth.twitterAuth.consumerSecret,
-			callbackURL: configAuth.twitterAuth.callbackURL
-
-		},
-		function(token, tokenSecret, profile, done) {
-
-			// make the code asynchronous
-			// User.findOne won't fire until we have all our data back from Twitter
-			process.nextTick(function() {
-
-				User.findOne({
-					'twitter.id': profile.id
-				}, function(err, user) {
-
-					// if there is an error, stop everything and return that
-					// ie an error connecting to the database
-					if (err)
-						return done(err);
-
-					// if the user is found then log them in
-					if (user) {
-						return done(null, user); // user found, return that user
-					} else {
-						// if there is no user, create them
-						var newUser = new User();
-
-						// set all of the user data that we need
-						newUser.twitter.id = profile.id;
-						newUser.twitter.token = token;
-						newUser.twitter.username = profile.username;
-						newUser.twitter.displayName = profile.displayName;
-
-						// save our user into the database
-						newUser.save(function(err) {
-							if (err)
-								throw err;
-							return done(null, newUser);
-						});
-					}
-				});
-
-			});
-
-		}));*/
+	));*/
 
 };
