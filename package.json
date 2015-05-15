@@ -6,7 +6,7 @@
     "start": "nodemon ./bin/www",
     "jsx": "jsx --watch res/ public/js/",
     "inspector": "node-inspector",
-    "debug": "node --debug-brk app.js"
+    "debugger": "node --debug-brk app.js"
   },
   "dependencies": {
     "async": "^0.9.0",
