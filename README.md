@@ -3,9 +3,9 @@
 ### Step to debug
 * Run Inspector
 ```bash
-$ node run inspector
+$ npm run inspector
 ```
 * Run Debugger
 ```bash
-$ node run debugger
+$ npm run debugger
 ```
